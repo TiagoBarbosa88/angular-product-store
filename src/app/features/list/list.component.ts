@@ -1,13 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Products } from '../../models/products';
 import { ProductServiceService } from './../../services/product-service.service';
-import { Observable } from 'rxjs';
+import { CardComponent } from './components/card/card.component';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, CardComponent],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
@@ -16,7 +17,7 @@ export class ListComponent {
 
   constructor(private productService: ProductServiceService) {
     this.products$ = this.productService.getProducts()
-   }
+  }
 
 
   // Versão com Subscribe
