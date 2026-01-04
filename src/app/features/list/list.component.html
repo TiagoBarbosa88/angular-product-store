@@ -1,4 +1,10 @@
-<div class="container">
-  <p class="content-container">list works!</p>
-
+<div>
+  <h1>Lista de produtos</h1>
+  <div>
+    <ol>
+      <li *ngFor="let product of products$">
+        {{ product.title }}
+      </li>
+    </ol>
+  </div>
 </div>
