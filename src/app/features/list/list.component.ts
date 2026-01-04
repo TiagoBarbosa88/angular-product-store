@@ -4,11 +4,13 @@ import { Observable } from 'rxjs';
 import { Products } from '../../models/products';
 import { ProductServiceService } from './../../services/product-service.service';
 import { CardComponent } from './components/card/card.component';
+import { RouterLink } from '@angular/router';
+import { MatAnchor } from "@angular/material/button";
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, CardComponent],
+  imports: [CommonModule, CardComponent, RouterLink, MatAnchor],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })

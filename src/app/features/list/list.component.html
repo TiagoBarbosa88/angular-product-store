@@ -1,17 +1,16 @@
-<div>
-  <h1>Lista de produtos</h1>
-  <div>
+<div class="action-container">
+  <a mat-raised-button color="primary" [routerLink]="[ '/create-product' ]">Criar Produto</a>
+</div>
 
-    <!-- Forma antiga do *ngFor -->
-    <!-- <li *ngFor="let product of products$ | async">
+
+<!-- Forma antiga do *ngFor -->
+<!-- <li *ngFor="let product of products$ | async">
         {{ product.title }}
       </li> -->
 
-    <!-- Nova forma do FOR -->
-    @if (products$ | async; as products){
-    @for (product of products; track product.id){
-      <app-card [product]="product"></app-card>
-    }
-    }
-  </div>
-</div>
+<!-- Nova forma do FOR -->
+@if (products$ | async; as products){
+@for (product of products; track product.id){
+<app-card [product]="product"></app-card>
+}
+}
