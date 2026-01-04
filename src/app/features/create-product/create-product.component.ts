@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { Router } from '@angular/router';
 import { ProductServiceService } from '../../services/product-service.service';
 
 
@@ -16,26 +17,37 @@ import { ProductServiceService } from '../../services/product-service.service';
 export class CreateProductComponent {
 
   productService = inject(ProductServiceService)
+  router = inject(Router)
+
 
   form = new FormGroup({
     title: new FormControl<string>('', {
       nonNullable: true,
-      validators: Validators.required
+      validators: Validators.required, 
     })
   })
 
   onSubmit() {
 
-    this.productService.createProduct({
-      title: this.form.controls.title.value
-    }).subscribe({
+    const title = this.form.controls.title.value?.trim()
+
+    if(!title){
+      this.productService.showMessage('Título é obrigatório', true);
+      return
+    }
+
+    this.productService.createProduct({ title }).subscribe({
       next: () => {
-        this.productService.showMessage("Produto criado com sucesso", false);
-        this.form.reset();
+          this.productService.showMessage("Produto criado com sucesso", false);
+          this.form.reset();
+          setTimeout(() => {
+            this.router.navigate(['']);
+          }, 1000);
       },
       error: (error) => {
         this.productService.showMessage("Erro ao criar produto", true);
       }
     })
+
   }
 }
