@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Products } from '../../models/products';
 import { ProductServiceService } from './../../services/product-service.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list',
@@ -10,17 +11,21 @@ import { ProductServiceService } from './../../services/product-service.service'
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
-export class ListComponent implements OnInit{
-  products$: Products[] = []
+export class ListComponent {
+  products$!: Observable<Products[]>
 
-  constructor(private productService: ProductServiceService){}
+  constructor(private productService: ProductServiceService) {
+    this.products$ = this.productService.getProducts()
+   }
 
-  ngOnInit(): void {
-    this.productService.getProducts().subscribe( products  => {
-      this.products$ = products
 
-      console.log(this.products$)
-    })
-  }
+  // Versão com Subscribe
+  // ngOnInit(): void {
+  //   this.productService.getProducts().subscribe( products  => {
+  //     this.products$ = products
+
+  //     console.log(this.products$)
+  //   })
+  // }
 
 }
