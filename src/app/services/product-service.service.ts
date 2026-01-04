@@ -13,11 +13,10 @@ export class ProductServiceService {
 
   http = inject(HttpClient)
   private _snackBar = inject(MatSnackBar);
-  durationInSeconds = 5;
 
    showMessage(msg: string, isError: boolean = false): void {
     this._snackBar.open(msg, 'X', {
-      duration: 3000,
+      duration: 2000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
       panelClass: isError ? ['ms-error'] : ['ms-success'],
