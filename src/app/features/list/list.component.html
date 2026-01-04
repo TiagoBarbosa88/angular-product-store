@@ -1,10 +1,20 @@
 <div>
   <h1>Lista de produtos</h1>
   <div>
-    <ol>
-      <li *ngFor="let product of products$ | async">
+
+    <!-- Forma antiga do *ngFor -->
+    <!-- <li *ngFor="let product of products$ | async">
         {{ product.title }}
-      </li>
-    </ol>
+      </li> -->
+
+    <!-- Nova forma do FOR -->
+    @if (products$ | async; as products){
+    <ul>
+      @for (product of products; track product.id){
+      <li>{{ product.title }}</li>
+      }
+    </ul>
+    } @else {
+    <p>Carregando...</p> }
   </div>
 </div>
