@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Products } from '../../models/products';
 import { ProductServiceService } from './../../services/product-service.service';
 import { CardComponent } from './components/card/card.component';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { MatAnchor } from "@angular/material/button";
 
 @Component({
@@ -17,9 +17,16 @@ import { MatAnchor } from "@angular/material/button";
 export class ListComponent {
   products$!: Observable<Products[]>
 
-  constructor(private productService: ProductServiceService) {
-    this.products$ = this.productService.getProducts()
+  productService = inject(ProductServiceService)
+  router = inject(Router)
+
+  ngOnInit(): void {
+   this.products$ = this.productService.getProducts()
   }
+
+  // constructor(private productService: ProductServiceService) {
+  //   this.products$ = this.productService.getProducts()
+  // }
 
 
   // Versão com Subscribe
@@ -30,5 +37,9 @@ export class ListComponent {
   //     console.log(this.products$)
   //   })
   // }
+
+  onEdit(){
+    this.router.navigateByUrl('/edit-product')
+  }
 
 }

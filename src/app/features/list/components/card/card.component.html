@@ -4,7 +4,7 @@
       <mat-card-title>{{ productTitle() }}</mat-card-title>
     </mat-card-header>
     <mat-card-actions>
-      <button matButton>Editar</button>
+      <button matButton (click)="edit.emit()">Editar</button>
       <button matButton>Deletar</button>
     </mat-card-actions>
   </mat-card>

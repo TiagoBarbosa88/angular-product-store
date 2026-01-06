@@ -27,6 +27,11 @@ export class ProductServiceService {
     return this.http.get<Products[]>(this.baseApi)
   }
 
+  getProductById(id: string): Observable<Products>{
+    const url = `${this.baseApi}/${id}`
+    return this.http.get<Products>(url)
+  }
+
   createProduct(payload: ProductPayload): Observable<Products> {
     return this.http.post<Products>(this.baseApi, payload)
   }
