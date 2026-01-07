@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { MatAnchor } from "@angular/material/button";
+import { Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Products } from '../../models/products';
 import { ProductServiceService } from './../../services/product-service.service';
 import { CardComponent } from './components/card/card.component';
-import { Router, RouterLink } from '@angular/router';
-import { MatAnchor } from "@angular/material/button";
 
 @Component({
   selector: 'app-list',
@@ -21,7 +21,11 @@ export class ListComponent {
   router = inject(Router)
 
   ngOnInit(): void {
-   this.products$ = this.productService.getProducts()
+    this.products$ = this.productService.getProducts()
+  }
+
+  onEdit(productId: string | undefined): void {
+    this.router.navigate(['/edit-product', productId])
   }
 
   // constructor(private productService: ProductServiceService) {
@@ -37,9 +41,5 @@ export class ListComponent {
   //     console.log(this.products$)
   //   })
   // }
-
-  onEdit(){
-    this.router.navigateByUrl('/edit-product')
-  }
 
 }
