@@ -30,7 +30,7 @@ export class CreateProductComponent {
         this.productService.showMessage("Produto criado com sucesso", false);
         setTimeout(() => {
           this.router.navigate(['']);
-        }, 1000);
+        }, 500);
       },
       error: (error) => {
         this.productService.showMessage("Erro ao criar produto", true);

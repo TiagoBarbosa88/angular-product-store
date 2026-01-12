@@ -41,8 +41,8 @@ export class ProductServiceService {
     return this.http.put<Product>(url, product)
   }
 
-  deleteProduct(product: Product): Observable<Product>{
-     const url = `${this.baseApi}/${product.id}`
+  deleteProduct(product: Product): Observable<Product> {
+    const url = `${this.baseApi}/${product.id}`
     return this.http.delete<Product>(url)
   }
 }
