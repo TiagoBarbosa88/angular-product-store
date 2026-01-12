@@ -16,7 +16,7 @@ export class ProductServiceService {
 
   showMessage(msg: string, isError: boolean = false): void {
     this._snackBar.open(msg, 'X', {
-      duration: 2000,
+      duration: 1000,
       horizontalPosition: 'center',
       verticalPosition: 'bottom',
       panelClass: isError ? ['ms-error'] : ['ms-success'],
@@ -39,5 +39,10 @@ export class ProductServiceService {
   editProduct(product: Product): Observable<Product> {
     const url = `${this.baseApi}/${product.id}`
     return this.http.put<Product>(url, product)
+  }
+
+  deleteProduct(product: Product): Observable<Product>{
+     const url = `${this.baseApi}/${product.id}`
+    return this.http.delete<Product>(url)
   }
 }
