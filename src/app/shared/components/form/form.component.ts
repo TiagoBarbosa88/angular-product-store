@@ -14,7 +14,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Products } from '../../../models/products';
+import { Product } from '../../../models/product';
 
 @Component({
   selector: 'app-form',
@@ -30,7 +30,7 @@ import { Products } from '../../../models/products';
 })
 export class FormComponent {
 
-  product = input<Products | null>(null);
+  product = input<Product | null>(null);
 
   // ✅ O FORM PRECISA NASCER PRONTO
   form = new FormGroup({
@@ -40,7 +40,7 @@ export class FormComponent {
     }),
   });
 
-  @Output() formSubmit = new EventEmitter<Products>();
+  @Output() formSubmit = new EventEmitter<Product>();
 
   constructor() {
     effect(() => {
@@ -60,6 +60,6 @@ export class FormComponent {
       return;
     }
 
-    this.formSubmit.emit(this.form.value as Products);
+    this.formSubmit.emit(this.form.value as Product);
   }
 }

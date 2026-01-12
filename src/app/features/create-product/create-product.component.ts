@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Products } from '../../models/products';
+import { Product } from '../../models/product';
 import { ProductServiceService } from '../../services/product-service.service';
 import { FormComponent } from '../../shared/components/form/form.component';
 
@@ -16,7 +16,7 @@ export class CreateProductComponent {
   productService = inject(ProductServiceService)
   router = inject(Router)
 
-  onSubmit(product: Products) {
+  onSubmit(product: Product) {
 
     const title = product.title
 

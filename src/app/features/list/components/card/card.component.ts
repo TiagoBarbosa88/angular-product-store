@@ -1,7 +1,7 @@
 import { Component, computed, EventEmitter, input, Output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { Products } from '../../../../models/products';
+import { Product } from '../../../../models/product';
 
 @Component({
   selector: 'app-card',
@@ -12,10 +12,10 @@ import { Products } from '../../../../models/products';
 })
 export class CardComponent {
 
-product = input.required<Products>()
+  product = input.required<Product>()
 
-@Output() edit = new EventEmitter();
+  @Output() edit = new EventEmitter();
 
-productTitle = computed(() => this.product().title)
+  productTitle = computed(() => this.product().title)
 
 }

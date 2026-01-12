@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable } from 'rxjs';
 import { ProductPayload } from '../models/payload-product.interface';
-import { Products } from './../models/products';
+import { Product } from '../models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -23,21 +23,21 @@ export class ProductServiceService {
     });
   }
 
-  getProducts(): Observable<Products[]> {
-    return this.http.get<Products[]>(this.baseApi)
+  getProducts(): Observable<Product[]> {
+    return this.http.get<Product[]>(this.baseApi)
   }
 
-  getProductById(id: string): Observable<Products>{
+  getProductById(id: string): Observable<Product> {
     const url = `${this.baseApi}/${id}`
-    return this.http.get<Products>(url)
+    return this.http.get<Product>(url)
   }
 
-  createProduct(payload: ProductPayload): Observable<Products> {
-    return this.http.post<Products>(this.baseApi, payload)
+  createProduct(payload: ProductPayload): Observable<Product> {
+    return this.http.post<Product>(this.baseApi, payload)
   }
 
-  editProduct(product: Products): Observable<Products> {
+  editProduct(product: Product): Observable<Product> {
     const url = `${this.baseApi}/${product.id}`
-    return this.http.put<Products>(url, product)
+    return this.http.put<Product>(url, product)
   }
 }

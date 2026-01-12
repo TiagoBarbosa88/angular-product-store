@@ -3,7 +3,7 @@ import { Component, inject } from '@angular/core';
 import { MatAnchor } from "@angular/material/button";
 import { Router, RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Products } from '../../models/products';
+import { Product } from '../../models/product';
 import { ProductServiceService } from './../../services/product-service.service';
 import { CardComponent } from './components/card/card.component';
 
@@ -15,7 +15,7 @@ import { CardComponent } from './components/card/card.component';
   styleUrl: './list.component.scss'
 })
 export class ListComponent {
-  products$!: Observable<Products[]>
+  products$!: Observable<Product[]>
 
   productService = inject(ProductServiceService)
   router = inject(Router)

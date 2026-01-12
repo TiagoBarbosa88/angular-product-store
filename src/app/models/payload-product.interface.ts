@@ -1,3 +1,3 @@
-import { Products } from './products';
+import { Product } from './product';
 
-export type ProductPayload = Omit<Products, 'id'>
+export type ProductPayload = Omit<Product, 'id'>

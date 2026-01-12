@@ -1,6 +1,6 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Products } from '../../models/products';
+import { Product } from '../../models/product';
 import { ProductServiceService } from '../../services/product-service.service';
 import { FormComponent } from '../../shared/components/form/form.component';
 
@@ -12,7 +12,7 @@ import { FormComponent } from '../../shared/components/form/form.component';
   styleUrl: './edit-product.component.scss'
 })
 export class EditProductComponent implements OnInit {
-  product$!: Products;
+  product$!: Product;
 
   productService = inject(ProductServiceService)
   router = inject(Router)
@@ -54,7 +54,7 @@ export class EditProductComponent implements OnInit {
 
   // }
 
-  onSubmit(product: Products) {
+  onSubmit(product: Product) {
     if (!product.title) {
       this.productService.showMessage('Título é obrigatório', true);
       return;
