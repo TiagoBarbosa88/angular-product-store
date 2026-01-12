@@ -1,21 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Products } from '../../models/products';
 import { ProductServiceService } from '../../services/product-service.service';
+import { FormComponent } from '../../shared/components/form/form.component';
 
 @Component({
   selector: 'app-edit-product',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [FormComponent],
   templateUrl: './edit-product.component.html',
   styleUrl: './edit-product.component.scss'
 })
 export class EditProductComponent implements OnInit {
-
   product$!: Products;
 
   productService = inject(ProductServiceService)
@@ -25,42 +21,57 @@ export class EditProductComponent implements OnInit {
 
   ngOnInit(): void {
     const id: any = this.route.snapshot.paramMap.get('id');
-    this.productService.getProductById(id).subscribe((product) => {
+
+    if (!id) return;
+
+    this.productService.getProductById(id).subscribe(product => {
       this.product$ = product;
-      this.form.patchValue({ title: product.title });
-    })
+    });
+
   }
 
 
-  form = new FormGroup({
-    title: new FormControl<string>('', {
-      nonNullable: true,
-      validators: Validators.required,
-    })
-  })
+  // onSubmit(product: Products) {
 
+  //   const title = this.product$.title
 
-  onSubmit() {
+  //   if (!title) {
+  //     this.productService.showMessage('Título é obrigatório', true);
+  //     return
+  //   }
 
-    const title = this.form.controls.title.value?.trim()
+  //   this.productService.editProduct({ ...this.product$, title }).subscribe({
+  //     next: () => {
+  //       this.productService.showMessage("Produto atualizado com sucesso", false);
+  //       setTimeout(() => {
+  //         this.router.navigate(['']);
+  //       }, 1000);
+  //     },
+  //     error: (error) => {
+  //       this.productService.showMessage("Erro ao atualizar produto", true);
+  //     }
+  //   })
 
-    if (!title) {
+  // }
+
+  onSubmit(product: Products) {
+    if (!product.title) {
       this.productService.showMessage('Título é obrigatório', true);
-      return
+      return;
     }
 
-    this.productService.editProduct({ ...this.product$, title }).subscribe({
+    this.productService.editProduct({
+      ...this.product$,
+      title: product.title
+    }).subscribe({
       next: () => {
-        this.productService.showMessage("Produto atualizado com sucesso", false);
-        setTimeout(() => {
-          this.router.navigate(['']);
-        }, 1000);
+        this.productService.showMessage('Produto atualizado com sucesso', false);
+        this.router.navigate(['']);
       },
-      error: (error) => {
-        this.productService.showMessage("Erro ao atualizar produto", true);
+      error: () => {
+        this.productService.showMessage('Erro ao atualizar produto', true);
       }
-    })
-
+    });
   }
 
 }

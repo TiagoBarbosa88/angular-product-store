@@ -1,5 +1,16 @@
-import { Component, EventEmitter, input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  Component,
+  effect,
+  EventEmitter,
+  input,
+  Output
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -8,30 +19,47 @@ import { Products } from '../../../models/products';
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
+  ],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
-export class FormComponent implements OnInit{
+export class FormComponent {
 
-  product = input<Products | null>(null)
-  form!: FormGroup;
+  product = input<Products | null>(null);
 
-  @Output() formSubmit = new EventEmitter<Products>()
+  // ✅ O FORM PRECISA NASCER PRONTO
+  form = new FormGroup({
+    title: new FormControl('', {
+      nonNullable: true,
+      validators: Validators.required,
+    }),
+  });
 
-  ngOnInit(): void {
-    this.form = new FormGroup({
-      title: new FormControl<string>(this.product()?.title ?? '', {
-        nonNullable: true,
-        validators: Validators.required,
-      })
-    })
+  @Output() formSubmit = new EventEmitter<Products>();
+
+  constructor() {
+    effect(() => {
+      const product = this.product();
+
+      // ✅ Proteção extra
+      if (product) {
+        this.form.patchValue({
+          title: product.title
+        });
+      }
+    });
   }
 
   onSubmit() {
-    const product = this.form.value as Products;
+    if (this.form.invalid) {
+      return;
+    }
 
-    this.formSubmit.emit(product)
-   }
-
+    this.formSubmit.emit(this.form.value as Products);
+  }
 }
