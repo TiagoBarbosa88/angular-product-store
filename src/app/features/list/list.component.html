@@ -9,8 +9,8 @@
       </li> -->
 
 <!-- Nova forma do FOR -->
-@if (products$ | async; as products){
-@for (product of products; track product.id){
+@if (products$().length > 0){
+@for (product of products$(); track product.id){
 <app-card [product]="product" (edit)="onEdit(product.id)" (delete)="onDelete(product)"></app-card>
 }
 }
