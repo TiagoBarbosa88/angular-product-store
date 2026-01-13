@@ -1,17 +1,15 @@
 import { Routes } from '@angular/router';
 import { ListComponent } from './features/list/list.component';
-import { ProductServiceService } from '../app/services/product-service.service'
-import { inject } from '@angular/core';
+import { getProducts } from './shared/resolvers/get-products.resolver';
 
 export const routes: Routes = [
-  { path: '',
+  {
+    path: '',
     resolve: {
-      products: () => {
-        const productService = inject(ProductServiceService)
-        return productService.getProducts()
-      }
+      products: getProducts
     },
-    component: ListComponent },
+    component: ListComponent
+  },
   {
     path: 'create-product',
     loadComponent: () => import('./features/create-product/create-product.component').then(m => m.CreateProductComponent)
