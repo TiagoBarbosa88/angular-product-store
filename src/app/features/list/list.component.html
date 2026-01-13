@@ -9,8 +9,15 @@
       </li> -->
 
 <!-- Nova forma do FOR -->
-@if (products$().length > 0){
+<!-- @if (products$().length > 0){ -->
 @for (product of products$(); track product.id){
-<app-card [product]="product" (edit)="onEdit(product.id)" (delete)="onDelete(product)"></app-card>
+  @defer (on immediate) {
+    <app-card [product]="product" (edit)="onEdit(product.id)" (delete)="onDelete(product)"></app-card>
+  }
 }
+@empty {
+  @defer (on immediate) {
+    <app-no-itens></app-no-itens>
+  }
 }
+<!-- } -->

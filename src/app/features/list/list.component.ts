@@ -8,16 +8,19 @@ import { Product } from '../../models/product';
 import { ConfirmationDialogService } from '../../shared/services/confirmation-dialog.service';
 import { ProductServiceService } from './../../services/product-service.service';
 import { CardComponent } from './components/card/card.component';
+import { NoItensComponent } from './components/no-itens/no-itens.component';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [CommonModule, CardComponent, RouterLink, MatAnchor, MatDialogModule],
+  imports: [CommonModule, CardComponent, RouterLink, MatAnchor, MatDialogModule, NoItensComponent],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss'
 })
 export class ListComponent {
-  products$ = signal<Product[]>(inject(ActivatedRoute).snapshot.data['products'])
+  products$ = signal<Product[]>(
+    inject(ActivatedRoute).snapshot.data['products']
+  )
 
   productService = inject(ProductServiceService)
   router = inject(Router)
