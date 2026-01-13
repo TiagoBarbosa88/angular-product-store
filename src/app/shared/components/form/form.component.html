@@ -6,10 +6,15 @@
       <input type="text" matInput formControlName="title" />
     </mat-form-field>
 
-    <button mat-raised-button color="primary" type="submit">
-      Salvar
-    </button>
+    <div class="buton-cancelar">
+      <button mat-raised-button color="primary" type="submit">
+        Salvar
+      </button>
 
+      <button mat-raised-button style="margin-left: 8px;" color="warn" type="button" (click)="onCancel()">
+        Cancelar
+      </button>
+    </div>
   </form>
 </div>
 

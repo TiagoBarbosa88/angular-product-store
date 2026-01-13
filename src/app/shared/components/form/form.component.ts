@@ -2,6 +2,7 @@ import {
   Component,
   effect,
   EventEmitter,
+  inject,
   input,
   Output
 } from '@angular/core';
@@ -15,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Product } from '../../../models/product';
+import { Router, RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-form',
@@ -23,14 +25,16 @@ import { Product } from '../../../models/product';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
-  ],
+    MatButtonModule,
+    RouterLink
+],
   templateUrl: './form.component.html',
   styleUrl: './form.component.scss'
 })
 export class FormComponent {
 
   product = input<Product | null>(null);
+  route = inject(Router)
 
   // ✅ O FORM PRECISA NASCER PRONTO
   form = new FormGroup({
@@ -62,4 +66,9 @@ export class FormComponent {
 
     this.formSubmit.emit(this.form.value as Product);
   }
+
+  onCancel(): void {
+    this.route.navigate(['/'])
+  }
+
 }
